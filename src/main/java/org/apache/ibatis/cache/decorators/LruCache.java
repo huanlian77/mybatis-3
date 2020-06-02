@@ -21,6 +21,9 @@ import java.util.Map;
 import org.apache.ibatis.cache.Cache;
 
 /**
+ * 最近最少缓存
+ *
+ * 利用 LinkedHashMap 实现的，核心方法 removeEldestEntry 来实现的。
  * Lru (least recently used) cache decorator.
  *
  * @author Clinton Begin

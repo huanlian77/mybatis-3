@@ -42,6 +42,9 @@ public class BeanWrapper extends BaseWrapper {
 
   @Override
   public Object get(PropertyTokenizer prop) {
+    // index不为空，说明是一个集合对象
+    // resolveCollection：获取集合对象属性
+    // getCollectionValue：从集合对象属性中通过 index 获取值
     if (prop.getIndex() != null) {
       Object collection = resolveCollection(prop, object);
       return getCollectionValue(prop, collection);
@@ -49,6 +52,7 @@ public class BeanWrapper extends BaseWrapper {
       return getBeanProperty(prop, object);
     }
   }
+
 
   @Override
   public void set(PropertyTokenizer prop, Object value) {

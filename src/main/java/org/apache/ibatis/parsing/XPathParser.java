@@ -1,17 +1,17 @@
 /**
- *    Copyright 2009-2019 the original author or authors.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Copyright 2009-2019 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.apache.ibatis.parsing;
 
@@ -46,10 +46,20 @@ import org.xml.sax.SAXParseException;
  */
 public class XPathParser {
 
+  /**
+   * XML解析成Document对象
+   */
   private final Document document;
   private boolean validation;
+  // TODO: 2020/5/29 不知道作用
   private EntityResolver entityResolver;
+  /**
+   * XML配置文件中使用${}的变量
+   */
   private Properties variables;
+  /**
+   * Java XPath解析器
+   */
   private XPath xpath;
 
   public XPathParser(String xml) {
@@ -142,6 +152,7 @@ public class XPathParser {
 
   public String evalString(Object root, String expression) {
     String result = (String) evaluate(expression, root, XPathConstants.STRING);
+    // 从XML解析变量进行替换，如${}变量，要替换成正在的properties值。
     result = PropertyParser.parse(result, variables);
     return result;
   }
@@ -227,6 +238,12 @@ public class XPathParser {
     }
   }
 
+  /**
+   * 创建Document文档，从InputSource对象中解析
+   *
+   * @param inputSource 把XML转化成流，InputSource对流进行封装
+   * @return
+   */
   private Document createDocument(InputSource inputSource) {
     // important: this must only be called AFTER common constructor
     try {

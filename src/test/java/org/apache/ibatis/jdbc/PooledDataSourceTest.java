@@ -60,6 +60,7 @@ class PooledDataSourceTest extends BaseDataTest {
       }
       assertEquals(3, ds.getPoolState().getActiveConnectionCount());
       for (Connection c : connections) {
+        // 创建的PooledDataSource数据源，调用close关闭时会执行PoolConnection.invoke()方法，因为PoolConnection是Connection的代理类，使用JDK动态代理。
         c.close();
       }
       assertEquals(2, ds.getPoolState().getIdleConnectionCount());

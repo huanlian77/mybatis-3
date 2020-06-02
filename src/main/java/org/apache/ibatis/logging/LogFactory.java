@@ -37,6 +37,7 @@ public final class LogFactory {
     tryImplementation(LogFactory::useLog4JLogging);
     tryImplementation(LogFactory::useJdkLogging);
     tryImplementation(LogFactory::useNoLogging);
+    tryImplementation(LogFactory::useCommonsLogging);
   }
 
   private LogFactory() {
@@ -101,6 +102,7 @@ public final class LogFactory {
     try {
       Constructor<? extends Log> candidate = implClass.getConstructor(String.class);
       Log log = candidate.newInstance(LogFactory.class.getName());
+      // 这个Log是否可以正常使用，不能正常使用跑出异常，进如下一个tryImplementation（）
       if (log.isDebugEnabled()) {
         log.debug("Logging initialized using '" + implClass + "' adapter.");
       }

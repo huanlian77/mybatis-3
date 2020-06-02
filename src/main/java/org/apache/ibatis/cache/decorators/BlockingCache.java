@@ -24,6 +24,8 @@ import org.apache.ibatis.cache.Cache;
 import org.apache.ibatis.cache.CacheException;
 
 /**
+ * 阻塞缓存
+ *
  * Simple blocking decorator
  *
  * Simple and inefficient version of EhCache's BlockingCache decorator.

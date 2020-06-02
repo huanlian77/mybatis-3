@@ -22,6 +22,7 @@ import java.lang.invoke.MethodType;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.ibatis.reflection.ExceptionUtil;
@@ -77,9 +78,9 @@ public class MapperProxy<T> implements InvocationHandler, Serializable {
   @Override
   public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
     try {
-      if (Object.class.equals(method.getDeclaringClass())) {
+      if (Object.class.equals(method.getDeclaringClass())) { // Object类直接调用
         return method.invoke(this, args);
-      } else if (method.isDefault()) {
+      } else if (method.isDefault()) { // 是否是 Default 方法
         if (privateLookupInMethod == null) {
           return invokeDefaultMethodJava8(proxy, method, args);
         } else {
@@ -89,10 +90,18 @@ public class MapperProxy<T> implements InvocationHandler, Serializable {
     } catch (Throwable t) {
       throw ExceptionUtil.unwrapThrowable(t);
     }
+    // 放入methodCache中，然后返回该MapperMethod
     final MapperMethod mapperMethod = cachedMapperMethod(method);
+    // 执行
     return mapperMethod.execute(sqlSession, args);
   }
 
+
+  /**
+   * 添加
+   * @param method
+   * @return
+   */
   private MapperMethod cachedMapperMethod(Method method) {
     return methodCache.computeIfAbsent(method,
         k -> new MapperMethod(mapperInterface, method, sqlSession.getConfiguration()));

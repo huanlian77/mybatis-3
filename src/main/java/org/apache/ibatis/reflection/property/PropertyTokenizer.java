@@ -18,10 +18,14 @@ package org.apache.ibatis.reflection.property;
 import java.util.Iterator;
 
 /**
+ * 属性分词
  * @author Clinton Begin
  */
 public class PropertyTokenizer implements Iterator<PropertyTokenizer> {
   private String name;
+  /**
+   * 索引，如name是 Order[0] 时会被改变成 Order，此时索引保存 Order[0]
+   */
   private final String indexedName;
   private String index;
   private final String children;

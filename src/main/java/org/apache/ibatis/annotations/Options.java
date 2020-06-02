@@ -1,17 +1,17 @@
 /**
- *    Copyright 2009-2019 the original author or authors.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Copyright 2009-2019 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.apache.ibatis.annotations;
 
@@ -36,6 +36,7 @@ import org.apache.ibatis.mapping.StatementType;
  *   boolean insert(User user);
  * }
  * </pre>
+ *
  * @author Clinton Begin
  */
 @Documented
@@ -43,29 +44,33 @@ import org.apache.ibatis.mapping.StatementType;
 @Target(ElementType.METHOD)
 public @interface Options {
   /**
-   * The options for the {@link Options#flushCache()}.
-   * The default is {@link FlushCachePolicy#DEFAULT}
+   * 缓存策略
    */
   enum FlushCachePolicy {
-    /** <code>false</code> for select statement; <code>true</code> for insert/update/delete statement. */
+    /**
+     * <code>false</code> for select statement; <code>true</code> for insert/update/delete statement.
+     */
     DEFAULT,
-    /** Flushes cache regardless of the statement type. */
+    /**
+     * Flushes cache regardless of the statement type.
+     */
     TRUE,
-    /** Does not flush cache regardless of the statement type. */
+    /**
+     * Does not flush cache regardless of the statement type.
+     */
     FALSE
   }
 
   /**
-   * Returns whether use the 2nd cache feature if assigned the cache.
-   *
-   * @return {@code true} if use; {@code false} if otherwise
+   * 是否使用缓存，默认值 true
    */
   boolean useCache() default true;
 
   /**
-   * Returns the 2nd cache flush strategy.
-   *
-   * @return the 2nd cache flush strategy
+   * 缓存刷新策略，
+   * DEFAULT：查询不刷新缓存，插入/更新/删除刷新缓存。
+   * TRUE：刷新缓存
+   * FALSE：不刷新缓存
    */
   FlushCachePolicy flushCache() default FlushCachePolicy.DEFAULT;
 
@@ -92,6 +97,7 @@ public @interface Options {
 
   /**
    * Returns the statement timeout.
+   *
    * @return the statement timeout
    */
   int timeout() default -1;

@@ -100,6 +100,7 @@ public class MapperAnnotationBuilder {
   private static final Set<Class<? extends Annotation>> SQL_PROVIDER_ANNOTATION_TYPES = new HashSet<>();
 
   private final Configuration configuration;
+  // TODO: 2020/6/2  MapperBuilderAssistant 的作用
   private final MapperBuilderAssistant assistant;
   private final Class<?> type;
 
@@ -124,16 +125,20 @@ public class MapperAnnotationBuilder {
 
   public void parse() {
     String resource = type.toString();
+    // 加载resource到Configuration中
     if (!configuration.isResourceLoaded(resource)) {
+      // 查找对应 Mapper.xml，有：进行加载
       loadXmlResource();
       configuration.addLoadedResource(resource);
       assistant.setCurrentNamespace(type.getName());
       parseCache();
       parseCacheRef();
       Method[] methods = type.getMethods();
+      // 遍历 Mapper 接口中所有的方法，
       for (Method method : methods) {
         try {
           // issue #237
+          // 不是桥接方法，解析Statement
           if (!method.isBridge()) {
             parseStatement(method);
           }
@@ -167,15 +172,17 @@ public class MapperAnnotationBuilder {
     if (!configuration.isResourceLoaded("namespace:" + type.getName())) {
       String xmlResource = type.getName().replace('.', '/') + ".xml";
       // #1347
+      // 从包路径中加载Mapper.xml
       InputStream inputStream = type.getResourceAsStream("/" + xmlResource);
       if (inputStream == null) {
-        // Search XML mapper that is not in the module but in the classpath.
+        // 包路径没有找到，从classpath中加载 Mapper.xml
         try {
           inputStream = Resources.getResourceAsStream(type.getClassLoader(), xmlResource);
         } catch (IOException e2) {
           // ignore, resource is not required
         }
       }
+      // 如果有 Mapper.xml ，就进行解析
       if (inputStream != null) {
         XMLMapperBuilder xmlParser = new XMLMapperBuilder(inputStream, assistant.getConfiguration(), xmlResource, configuration.getSqlFragments(), type.getName());
         xmlParser.parse();

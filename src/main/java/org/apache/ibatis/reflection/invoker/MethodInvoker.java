@@ -31,9 +31,10 @@ public class MethodInvoker implements Invoker {
   public MethodInvoker(Method method) {
     this.method = method;
 
+    // 参数大小为1，Setter方法
     if (method.getParameterTypes().length == 1) {
       type = method.getParameterTypes()[0];
-    } else {
+    } else { // 参数大小不为1，Getter方法
       type = method.getReturnType();
     }
   }

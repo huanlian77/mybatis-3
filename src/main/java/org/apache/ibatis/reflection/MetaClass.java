@@ -1,17 +1,17 @@
 /**
- *    Copyright 2009-2018 the original author or authors.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Copyright 2009-2018 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.apache.ibatis.reflection;
 
@@ -27,6 +27,7 @@ import org.apache.ibatis.reflection.invoker.MethodInvoker;
 import org.apache.ibatis.reflection.property.PropertyTokenizer;
 
 /**
+ * 类的元数据操作
  * @author Clinton Begin
  */
 public class MetaClass {
@@ -34,6 +35,9 @@ public class MetaClass {
   private final ReflectorFactory reflectorFactory;
   private final Reflector reflector;
 
+  /**
+   * 私有
+   */
   private MetaClass(Class<?> type, ReflectorFactory reflectorFactory) {
     this.reflectorFactory = reflectorFactory;
     this.reflector = reflectorFactory.findForClass(type);
@@ -43,11 +47,17 @@ public class MetaClass {
     return new MetaClass(type, reflectorFactory);
   }
 
+  /**
+   * 获取属性的返回类型的MetaClass
+   */
   public MetaClass metaClassForProperty(String name) {
     Class<?> propType = reflector.getGetterType(name);
     return MetaClass.forClass(propType, reflectorFactory);
   }
 
+  /**
+   * 通过字符串返回属性名
+   */
   public String findProperty(String name) {
     StringBuilder prop = buildProperty(name, new StringBuilder());
     return prop.length() > 0 ? prop.toString() : null;
@@ -60,14 +70,23 @@ public class MetaClass {
     return findProperty(name);
   }
 
+  /**
+   * 返回所有Getter方法名
+   */
   public String[] getGetterNames() {
     return reflector.getGetablePropertyNames();
   }
 
+  /**
+   * 返回所有Setter方法名
+   */
   public String[] getSetterNames() {
     return reflector.getSetablePropertyNames();
   }
 
+  /**
+   * 返回指定Setter方法返回类型
+   */
   public Class<?> getSetterType(String name) {
     PropertyTokenizer prop = new PropertyTokenizer(name);
     if (prop.hasNext()) {
@@ -78,6 +97,9 @@ public class MetaClass {
     }
   }
 
+  /**
+   * 返回指定Getter方法返回类型
+   */
   public Class<?> getGetterType(String name) {
     PropertyTokenizer prop = new PropertyTokenizer(name);
     if (prop.hasNext()) {
@@ -88,6 +110,9 @@ public class MetaClass {
     return getGetterType(prop);
   }
 
+  /**
+   * 获取属性的返回类型的MetaClass
+   */
   private MetaClass metaClassForProperty(PropertyTokenizer prop) {
     Class<?> propType = getGetterType(prop);
     return MetaClass.forClass(propType, reflectorFactory);
@@ -131,6 +156,9 @@ public class MetaClass {
     return null;
   }
 
+  /**
+   * 判断是否有对应Setter方法
+   */
   public boolean hasSetter(String name) {
     PropertyTokenizer prop = new PropertyTokenizer(name);
     if (prop.hasNext()) {
@@ -145,6 +173,9 @@ public class MetaClass {
     }
   }
 
+  /**
+   * 判断是否有对应Getter方法
+   */
   public boolean hasGetter(String name) {
     PropertyTokenizer prop = new PropertyTokenizer(name);
     if (prop.hasNext()) {
@@ -159,10 +190,16 @@ public class MetaClass {
     }
   }
 
+  /**
+   * 获取Getter属性的Invoke
+   */
   public Invoker getGetInvoker(String name) {
     return reflector.getGetInvoker(name);
   }
 
+  /**
+   * 获取Setter属性的Invoke
+   */
   public Invoker getSetInvoker(String name) {
     return reflector.getSetInvoker(name);
   }

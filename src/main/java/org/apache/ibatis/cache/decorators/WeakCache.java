@@ -23,6 +23,7 @@ import java.util.LinkedList;
 import org.apache.ibatis.cache.Cache;
 
 /**
+ * 弱引用
  * Weak Reference cache decorator.
  * Thanks to Dr. Heinz Kabutz for his guidance here.
  *
@@ -94,6 +95,13 @@ public class WeakCache implements Cache {
     delegate.clear();
   }
 
+  /**
+   * 移除已经被GC回收的键
+   *
+   * 当queueOfGarbageCollectedEntries中有值时，表示已经被垃圾回收器回收了。
+   *
+   * 其实这里有和 ThreadLocal 一样的内存泄漏的问题
+   */
   private void removeGarbageCollectedItems() {
     WeakEntry sv;
     while ((sv = (WeakEntry) queueOfGarbageCollectedEntries.poll()) != null) {

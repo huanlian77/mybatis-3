@@ -19,6 +19,11 @@ import java.io.InputStream;
 import java.net.URL;
 
 /**
+ * Java有四种类加载器
+ *
+ * 自定义类加载器 -> 系统类加载器 -> 扩展类加载器 -> 启动类加载器
+ *
+ *
  * A class to wrap access to multiple class loaders making them work as one
  *
  * @author Clinton Begin

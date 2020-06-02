@@ -33,6 +33,7 @@ import javax.sql.DataSource;
 import org.apache.ibatis.io.Resources;
 
 /**
+ * 非池化数据源：每个请求都打开连接、关闭连接
  * @author Clinton Begin
  * @author Eduardo Macarron
  */
@@ -40,6 +41,9 @@ public class UnpooledDataSource implements DataSource {
 
   private ClassLoader driverClassLoader;
   private Properties driverProperties;
+  /**
+   * Driver驱动实现类
+   */
   private static Map<String, Driver> registeredDrivers = new ConcurrentHashMap<>();
 
   private String driver;
@@ -47,8 +51,22 @@ public class UnpooledDataSource implements DataSource {
   private String username;
   private String password;
 
+  /**
+   * 事务自动提交
+   */
   private Boolean autoCommit;
+  /**
+   * 事务隔离级别：
+   * 0：使用事务
+   * 1：读未提交
+   * 2：读已提交
+   * 4：可重复度
+   * 8：串行化
+   */
   private Integer defaultTransactionIsolationLevel;
+  /**
+   * 超时时间
+   */
   private Integer defaultNetworkTimeout;
 
   static {
@@ -218,6 +236,7 @@ public class UnpooledDataSource implements DataSource {
 
   private Connection doGetConnection(Properties properties) throws SQLException {
     initializeDriver();
+    // 获取connect
     Connection connection = DriverManager.getConnection(url, properties);
     configureConnection(connection);
     return connection;

@@ -15,6 +15,7 @@
  */
 package org.apache.ibatis;
 
+import org.apache.ibatis.datasource.pooled.PoolState;
 import org.apache.ibatis.datasource.pooled.PooledDataSource;
 import org.apache.ibatis.datasource.unpooled.UnpooledDataSource;
 import org.apache.ibatis.io.Resources;

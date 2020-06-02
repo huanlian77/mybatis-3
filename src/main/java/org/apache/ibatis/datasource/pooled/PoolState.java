@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 连接池状态
  * @author Clinton Begin
  */
 public class PoolState {
@@ -27,13 +28,31 @@ public class PoolState {
 
   protected final List<PooledConnection> idleConnections = new ArrayList<>();
   protected final List<PooledConnection> activeConnections = new ArrayList<>();
+  /**
+   * 获取连接的次数
+   */
   protected long requestCount = 0;
+  /**
+   * 获取链的总市场
+   */
   protected long accumulatedRequestTime = 0;
   protected long accumulatedCheckoutTime = 0;
+  /**
+   * 获取连接超时的次数
+   */
   protected long claimedOverdueConnectionCount = 0;
+  /**
+   * 获取连接超时的总时长
+   */
   protected long accumulatedCheckoutTimeOfOverdueConnections = 0;
+  /**
+   * 获取连接等待时间
+   */
   protected long accumulatedWaitTime = 0;
   protected long hadToWaitCount = 0;
+  /**
+   * 获取坏连接的次数
+   */
   protected long badConnectionCount = 0;
 
   public PoolState(PooledDataSource dataSource) {

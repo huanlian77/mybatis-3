@@ -224,6 +224,8 @@ class PooledConnection implements InvocationHandler {
   /**
    * Required for InvocationHandler implementation.
    *
+   * InvokeHandler#invoke方法，调用关闭连接方法时，都是放回连接池，而不是执行被代理对象的关闭；其他方法都先判断连接是否有效
+   *
    * @param proxy  - not used
    * @param method - the method to be executed
    * @param args   - the parameters to be passed to the method
