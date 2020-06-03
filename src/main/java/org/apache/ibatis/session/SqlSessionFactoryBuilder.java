@@ -26,6 +26,8 @@ import org.apache.ibatis.executor.ErrorContext;
 import org.apache.ibatis.session.defaults.DefaultSqlSessionFactory;
 
 /**
+ * SqlSessionFactoryBuilder 是 MyBatis 的入口，该入口只能被调用一次。
+ *
  * Builds {@link SqlSession} instances.
  *
  * @author Clinton Begin

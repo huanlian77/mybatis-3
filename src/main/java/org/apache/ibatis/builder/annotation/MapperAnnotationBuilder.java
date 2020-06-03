@@ -100,7 +100,6 @@ public class MapperAnnotationBuilder {
   private static final Set<Class<? extends Annotation>> SQL_PROVIDER_ANNOTATION_TYPES = new HashSet<>();
 
   private final Configuration configuration;
-  // TODO: 2020/6/2  MapperBuilderAssistant 的作用
   private final MapperBuilderAssistant assistant;
   private final Class<?> type;
 
@@ -127,7 +126,7 @@ public class MapperAnnotationBuilder {
     String resource = type.toString();
     // 加载resource到Configuration中
     if (!configuration.isResourceLoaded(resource)) {
-      // 查找对应 Mapper.xml，有：进行加载
+      // 加载对应 Mapper xml 映射文件，如果已经加载了，不处理。
       loadXmlResource();
       configuration.addLoadedResource(resource);
       assistant.setCurrentNamespace(type.getName());
@@ -473,6 +472,7 @@ public class MapperAnnotationBuilder {
 
   private SqlSource getSqlSourceFromAnnotations(Method method, Class<?> parameterType, LanguageDriver languageDriver) {
     try {
+      // 获取注解类型
       Class<? extends Annotation> sqlAnnotationType = getSqlAnnotationType(method);
       Class<? extends Annotation> sqlProviderAnnotationType = getSqlProviderAnnotationType(method);
       if (sqlAnnotationType != null) {

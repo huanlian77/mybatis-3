@@ -51,7 +51,9 @@ public class XPathParser {
    */
   private final Document document;
   private boolean validation;
-  // TODO: 2020/5/29 不知道作用
+  /**
+   * MyBatis DTDs检测
+   */
   private EntityResolver entityResolver;
   /**
    * XML配置文件中使用${}的变量

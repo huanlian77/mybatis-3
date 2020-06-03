@@ -37,6 +37,7 @@
         </environment>
     </environments>
 
+
     <mappers>
         <mapper resource="org/apache/ibatis/autoconstructor/AutoConstructorMapper.xml"/>
     </mappers>
