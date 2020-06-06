@@ -21,7 +21,7 @@ MyBatis从Mapper所在目录或者Classpath中读取Mapper.xml，然后进行解
 
 注解式的是根据SQL中`<script>`关键字判断的进不进行动态SQL判断，XML式是对所有SQL进行动态SQL盘判断。
 
-判断方式，判断XML的Node有没有  `<Choose>、<Set>、<ForEach>、<If>、<Otherwise>、<Trim>、<Where>、<Bind>
+判断方式，判断XML的Node有没有  `<Choose>、<Set>、<ForEach>、<If>、<Otherwise>、<Trim>、<Where>、<Bind>`
 
 ## MyBatis插件如何定制
 继承Interceptor接口，实现intercept()方法，通过@Intercepts和@Signature两个注解指定被代理的类和方法。
