@@ -85,11 +85,11 @@ StatementHandler负责处理与JDBC Statement之间的交互。
 - [x] 配置解析（builder）：解析Mapper映射文件和接口类的**增删改查**方法为MappedStatement对象
 - [x] 参数映射：参数映射是多个模块完成的。核心是ParameterMapping和DefaultParameterHandler类
 - [x] SQL解析（scripting）：MyBatis SQL语句会解析成一个个SqlNode，最终解析成一个SqlSource。builder模块在进行配置解析处理**增删改查**方法会调用该模块进行SQL处理，包括动态SQL的处理
-- [ ] SQL执行（executor和cursor）：
+- [x] SQL执行（executor和cursor）：
     - executor：SQL执行模块
     - cursor：结果处理游标
-- [ ] 结果集映射（mapping）: SQL执行结果与MyBatis定义的<ResultMap>,<Result>,<ParameterMap>,<Parameter>映射
-- [ ] 插件（plugin）：TODO
+- [x] 结果集映射（mapping）: SQL执行结果与MyBatis定义的 `<ResultMap>,<Result>,<ParameterMap>,<Parameter>`映射
+- [x] 插件（plugin）：实现Interceptor接口，通过Plugin代理类来实。
 
 接口层:
 
