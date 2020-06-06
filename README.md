@@ -72,13 +72,13 @@ StatementHandler负责处理与JDBC Statement之间的交互。
 - [x] 数据源模块（datasource）：处理数据源连接、池化等功能 
 - [x] 事务管理模块（transaction）：对数据库事务进行抽象
 - [x] 缓存模块（cache）：支持一级和二级缓存
-- [x] Binding模块（binding）：对Mapper接口类进行代理，生成一个MapperProxy代理类，在这个代理类中实现Mapper接口中方法与Mapper.xml文件进行绑定。
-- [x] 反射模块（reflection）：对Java反射模块进行封装，完成对类和类对象的元数据操作。
-- [x] 类型转化（type）：JdbcType与JavaType映射，是利用TypeHandlerRegistry类实现的；别名是TypeAliasRegistry类实现的。
-- [x] 日志模块（logging）：通过LogFactory中的static代码块，按顺序加载日志实现类，找到第一个可用的日志工具。
-- [x] 资源加载（io）：从Resource\Url中加载资源，并且通过ClassLoaderWrapper类指定 ClassLoader 的加载顺序。
+- [x] Binding模块（binding）：对Mapper接口类进行代理，生成一个MapperProxy代理类，在这个代理类中实现Mapper接口中方法与Mapper.xml文件进行绑定
+- [x] 反射模块（reflection）：对Java反射模块进行封装，完成对类和类对象的元数据操作
+- [x] 类型转化（type）：JdbcType与JavaType映射，是利用TypeHandlerRegistry类实现的；别名是TypeAliasRegistry类实现的
+- [x] 日志模块（logging）：通过LogFactory中的static代码块，按顺序加载日志实现类，找到第一个可用的日志工具
+- [x] 资源加载（io）：从Resource\Url中加载资源，并且通过ClassLoaderWrapper类指定 ClassLoader 的加载顺序
 - [x] 解析器模块（parsing）：解析MyBatis Config XML和 Mapper XML文件成Document，并提供一系列从Document中获取元素值的方法
-- [x] 注解模块（annotations）：定义了很多注解。
+- [x] 注解模块（annotations）：定义了很多注解
 - [x] 异常模块（exceptions）：定义了 PersistenceException 类，每个模块的异常都继承该类。
 
 核心处理层：
@@ -89,7 +89,7 @@ StatementHandler负责处理与JDBC Statement之间的交互。
     - executor：SQL执行模块
     - cursor：结果处理游标
 - [x] 结果集映射（mapping）: SQL执行结果与MyBatis定义的 `<ResultMap>,<Result>,<ParameterMap>,<Parameter>`映射
-- [x] 插件（plugin）：实现Interceptor接口，通过Plugin代理类来实。
+- [x] 插件（plugin）：实现Interceptor接口，通过Plugin代理类来实
 
 接口层:
 
@@ -130,7 +130,7 @@ sqlSessionFactory.getConfiguration().getTypeHandlerRegistry().register(StringTri
 
 - MyBatis初始化时通过XMLConfigBuild解析 mybatis-config.xml 文件，然后解析到 mappers 元素，获取Mapper映射文件的路径。
 - 加载Mapper映射文件，把Mapper映射文件中 `select|insert|update|delete`  元素解析为 MapperStatement 对象。{@link XMLMapperBuilder#configurationElement}
-- 通过Mapper映射文件的namespace属性获取Mapper接口类的全类名**（所以MyBatis规定namespace一定是Mapper接口类全类名的原因）**。遍历Mapper接口类所有的方法，获取方法注解，如果存在 ` @Select、@Update、@Insert、@Delete、@SelectProvider、@UpdateProvider、@InsertProvider、@DeleteProvider` 则解析为 MapperStatement 对象。{@link MapperAnnotationBuilder#getSqlSourceFromAnnotations}
+- 通过Mapper映射文件的namespace属性获取Mapper接口类的全类名 **（所以MyBatis规定namespace一定是Mapper接口类全类名的原因）**。遍历Mapper接口类所有的方法，获取方法注解，如果存在 ` @Select、@Update、@Insert、@Delete、@SelectProvider、@UpdateProvider、@InsertProvider、@DeleteProvider` 则解析为 MapperStatement 对象。{@link MapperAnnotationBuilder#getSqlSourceFromAnnotations}
 
 ## MyBatis中的设计模式
 
@@ -154,11 +154,13 @@ sqlSessionFactory.getConfiguration().getTypeHandlerRegistry().register(StringTri
     - LruCache
 
 工厂方法模式
-	- DataSourceFactory
+
+- DataSourceFactory
 
 构造器模式
-	- XMLConfigBuilder
-	- XMLMapperBuilder
-	- XMLStatementBuilder
-	- MapperAnnotationBuilder
-	- SqlSessionFactoryBuilder
+
+- XMLConfigBuilder
+- XMLMapperBuilder
+- XMLStatementBuilder
+- MapperAnnotationBuilder
+- SqlSessionFactoryBuilder
