@@ -93,7 +93,7 @@ StatementHandler负责处理与JDBC Statement之间的交互。
 
 接口层:
 
-- [ ] sqlSession（session）：MyBatis对外交互模块
+- [x] sqlSession（session）：MyBatis对外交互模块
 
 ## MyBatis如何设置避免MySQL8小时断开连接，MyBatis无法知道MySQL已经自动断开连接呢
 
