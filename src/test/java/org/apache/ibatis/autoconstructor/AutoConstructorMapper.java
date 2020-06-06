@@ -20,7 +20,7 @@ import org.apache.ibatis.annotations.Select;
 import java.util.List;
 
 public interface AutoConstructorMapper {
-  @Select("SELECT * FROM subject WHERE id = #{id}")
+  @Select("SELECT * FROM subject WHERE id = ${id}")
   PrimitiveSubject getSubject(final int id);
 
   @Select("SELECT * FROM subject")
@@ -34,4 +34,5 @@ public interface AutoConstructorMapper {
 
   @Select("SELECT * FROM extensive_subject")
   List<ExtensiveSubject> getExtensiveSubjects();
+
 }

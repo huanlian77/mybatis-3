@@ -472,7 +472,8 @@ public class MapperAnnotationBuilder {
 
   private SqlSource getSqlSourceFromAnnotations(Method method, Class<?> parameterType, LanguageDriver languageDriver) {
     try {
-      // 获取注解类型
+      // 获取注解，如果有 @Select、@Update、@Insert、@Delete、@SelectProvider、@UpdateProvider、@InsertProvider、@DeleteProvider 注解进行处理
+      // 如果没有这些注解，说明 SQL 是在 Mapper.xml 映射文件中，已经在加载 Mapper.xml 流程中加载成 SqlSource 了。
       Class<? extends Annotation> sqlAnnotationType = getSqlAnnotationType(method);
       Class<? extends Annotation> sqlProviderAnnotationType = getSqlProviderAnnotationType(method);
       if (sqlAnnotationType != null) {
